@@ -148,8 +148,7 @@ modules:
                 SHARE_DIR=/app/share
       - make -j$(nproc)
       - make install 
-      - install -Dm644 flatpak/io.github.CsoundQt.CsoundQt.metainfo.xml \
-              /app/share/metainfo/io.github.CsoundQt.CsoundQt.metainfo.xml
+      - install -Dm644 flatpak/io.github.CsoundQt.CsoundQt.metainfo.xml /app/share/metainfo/io.github.CsoundQt.CsoundQt.metainfo.xml
       - install -Dm644 flatpak/csoundqt.png /app/share/icons/hicolor/256x256/apps/io.github.CsoundQt.CsoundQt.png
       - install io.github.CsoundQt.CsoundQt.desktop /app/share/applications/io.github.CsoundQt.CsoundQt.desktop
 
@@ -164,8 +163,7 @@ modules:
       - mkdir -p /app/share/manual
       - cp -a extracted/csound7-manual-offline/. /app/share/manual/
       - find /app/share/manual -maxdepth 3 -type f | head -50
-      - install -Dm644 COPYING \
-                /app/share/licenses/$FLATPAK_ID/csound-manual/COPYING
+      - install -Dm644 COPYING /app/share/licenses/$FLATPAK_ID/csound-manual/COPYING
 
     sources:
       - type: file
