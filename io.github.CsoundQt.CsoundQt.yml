@@ -82,7 +82,7 @@ modules:
         url: https://github.com/csound/csound
         # branch: develop
         disable-shallow-clone: true
-        commit: 75537cb944a925bd1545a39e84f2e269fda8c1b6
+        commit: 48a2912307fbb7133b12b22e5685aa1121ece737
 
   # External Csound plugins (https://github.com/csound-plugins/csound-plugins)
   # Built against the csound installed above (headers in /app/include/csound),
@@ -117,14 +117,56 @@ modules:
     sources:
       - type: git
         url: https://github.com/csound-plugins/csound-plugins
-        commit: 9d8111954c27aca75dbf9e0245833843d2eb0733
+        commit: 398d785b046e3f5c9c121a2ec28559c330195740
         disable-submodules: true
       - type: git
         url: https://github.com/asb2m10/jsusfx
         commit: bcc9cd7b910ee7bba5b4cd2649448ade2ec15712
         dest: src/jsfx/jsusfx
 
+  # dependencies of foot terminal
+  - name: tllist
+    buildsystem: meson
+    config-opts:
+      - --prefix=/app
+    sources:
+      - type: git
+        url: https://codeberg.org/dnkl/tllist.git
+        tag: "1.1.0"
+    license-files: 
+      - LICENSE
   
+  - name: fcft
+    buildsystem: meson
+    config-opts:
+      - --prefix=/app
+      - -Ddocs=disabled
+      - -Dsystem-nanosvg=disabled  
+    sources:
+      - type: git
+        url: https://codeberg.org/dnkl/fcft.git
+        tag: "3.3.3"
+    license-files:
+      - LICENSE
+  
+  - name: foot
+    buildsystem: meson
+    config-opts:
+      - --prefix=/app
+      - -Ddocs=disabled
+      - -Dthemes=false  # was true
+      - -Dterminfo=disabled  # Disable terminfo generation
+      - -Dwerror=false
+    sources:
+      - type: git
+        url: https://codeberg.org/dnkl/foot.git
+        tag: "1.27.0"
+    depends:
+      - fcft
+      - tllist
+    license-files:
+      - LICENSE
+        
   - name: CsoundQt
     buildsystem: simple
     license-files:
@@ -132,7 +174,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/CsoundQt/CsoundQt.git
-        commit: cdc1271dc2fb0c3012392928e41b910475be07a5
+        commit: d7322d3e894086c8fa76e8529c5d75477b05c2f0
         
     build-commands:
       - which qmake
@@ -176,7 +218,7 @@ modules:
           pattern: 'csound7-manual-offline\.zip'
 
       - type: file
-        url: https://github.com/csound/csound/raw/75537cb944a925bd1545a39e84f2e269fda8c1b6/COPYING
+        url: https://github.com/csound/csound/raw/48a2912307fbb7133b12b22e5685aa1121ece737/COPYING
         sha256: 277175daefabde6cff3f6dd8ad7a21a2a346b29d3a7d3762367e4354da2ed77d
         dest-filename: COPYING
 
