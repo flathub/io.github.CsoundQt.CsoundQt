@@ -2,11 +2,7 @@ app-id: io.github.CsoundQt.CsoundQt
 runtime: org.kde.Platform
 runtime-version: '6.11'
 sdk: org.kde.Sdk
-base: io.qt.qtwebengine.BaseApp
-base-version: '6.11'
 command: CsoundQt-d-cs7
-cleanup-commands:
-  - /app/cleanup-BaseApp.sh
 
 finish-args:
   - --share=ipc
@@ -17,7 +13,6 @@ finish-args:
   - --share=network    # OSC networking needed
   - --device=all       # MIDI/audio devices 
   - --filesystem=xdg-run/pipewire-0
-  - --env=QTWEBENGINEPROCESS_PATH=/app/bin/QtWebEngineProcess
   - --env=NO_AT_BRIDGE=1
   - --env=LD_LIBRARY_PATH=/app/lib
   - --env=AT_SPI_BUS_ADDRESS=disabled
@@ -82,7 +77,7 @@ modules:
         url: https://github.com/csound/csound
         # branch: develop
         disable-shallow-clone: true
-        commit: 48a2912307fbb7133b12b22e5685aa1121ece737
+        commit: e1483e1d65dfd20c4cffc0beec6241c9114dcf2f
 
   # External Csound plugins (https://github.com/csound-plugins/csound-plugins)
   # Built against the csound installed above (headers in /app/include/csound),
@@ -117,7 +112,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/csound-plugins/csound-plugins
-        commit: 398d785b046e3f5c9c121a2ec28559c330195740
+        commit: f701c121341a2f9036d2ae92485589db75dcda25
         disable-submodules: true
       - type: git
         url: https://github.com/asb2m10/jsusfx
@@ -172,9 +167,10 @@ modules:
     license-files:
       - COPYING
     sources:
-      - type: git
+      - type: dir
+        path: /home/em/dev/forks/CsoundQt
         url: https://github.com/CsoundQt/CsoundQt.git
-        commit: d7322d3e894086c8fa76e8529c5d75477b05c2f0
+        commit: c16abfaa038ad6fb89ee38d6f10dd93fdfddefe2
         
     build-commands:
       - which qmake
@@ -210,7 +206,7 @@ modules:
     sources:
       - type: file
         url: https://github.com/csound/manual/releases/download/latest/csound7-manual-offline.zip
-        sha256: a1eb732942a651635ae838e142f339cde5c3822e33236ffea7c9afca613e932d
+        sha256: 4ae3d71ead44931d9e7636c4af881d4d0ab5ae064fbc473c46328b9b9bebbb1c
         dest-filename: csound7-manual-offline.zip
         x-checker-data:
           type: html
@@ -218,7 +214,7 @@ modules:
           pattern: 'csound7-manual-offline\.zip'
 
       - type: file
-        url: https://github.com/csound/csound/raw/48a2912307fbb7133b12b22e5685aa1121ece737/COPYING
+        url: https://github.com/csound/csound/raw/e1483e1d65dfd20c4cffc0beec6241c9114dcf2f/COPYING
         sha256: 277175daefabde6cff3f6dd8ad7a21a2a346b29d3a7d3762367e4354da2ed77d
         dest-filename: COPYING
 
